@@ -1,0 +1,20 @@
+name: semantic-release
+description: Tag the next version and publish a GitHub release from the commits since the last tag.
+
+inputs:
+  github-token:
+    description: Token with contents write access to the repository.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+      with:
+        node-version: 24
+
+    # conventional-changelog-conventionalcommits 10 needs a newer changelog writer than semantic-release 25 bundles.
+    - shell: bash
+      run: npx --yes -p semantic-release@25.0.9 -p conventional-changelog-conventionalcommits@9.3.1 semantic-release
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}

@@ -3,7 +3,10 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
     groups:
       github-actions:
         patterns:
@@ -11,7 +14,10 @@ updates:
   - package-ecosystem: "gomod"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
     groups:
       gomod:
         patterns:
