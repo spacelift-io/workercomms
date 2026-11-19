@@ -44,9 +44,10 @@ func keyPair(t *testing.T) (public, private []byte) {
 func testRequest() pollcomms.PollRequest {
 	buildTimestamp := int64(1234)
 	return pollcomms.PollRequest{
-		PublicKey:      "worker-public-key",
-		BuildTimestamp: &buildTimestamp,
-		Metadata:       map[string]any{"name": "worker-0"},
+		PublicKey:          "worker-public-key",
+		BuildTimestamp:     &buildTimestamp,
+		Metadata:           map[string]any{"name": "worker-0"},
+		LauncherGeneration: 1,
 	}
 }
 
@@ -152,7 +153,8 @@ func TestDispatchHappensBeforeAckWithValidTokens(t *testing.T) {
 
 		var request pollcomms.PollRequest
 		assert.NoError(t, json.NewDecoder(r.Body).Decode(&request))
-		assert.Equal(t, "worker-public-key", request.PublicKey)
+		assert.Equal(t, testRequest().PublicKey, request.PublicKey)
+		assert.Equal(t, testRequest().LauncherGeneration, request.LauncherGeneration)
 
 		pollMu.Lock()
 		pollCount++
@@ -387,6 +389,7 @@ func TestSetAvailableInterruptsHeldPoll(t *testing.T) {
 			}
 			return
 		}
+		assert.Equal(t, testRequest().LauncherGeneration, request.LauncherGeneration)
 		select {
 		case rePolled <- request.Available:
 		default:

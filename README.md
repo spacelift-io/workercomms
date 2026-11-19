@@ -19,8 +19,6 @@ go get github.com/spacelift-io/workercomms
   key pair that work is encrypted for.
 - workload describes what a worker needs to know about an assigned run, intent
   task or scan before it starts.
-- capability names the features that a launcher or a kube-workerpool-controller
-  build supports, which each one reports when it registers a worker.
 - workerapi defines what a workload sends Spacelift to report run state
   changes, intent results and scan events, and where it sends them.
 
