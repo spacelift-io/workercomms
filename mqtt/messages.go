@@ -3,6 +3,7 @@ package mqtt
 import (
 	"time"
 
+	"github.com/spacelift-io/workercomms/capability"
 	"github.com/spacelift-io/workercomms/messages"
 )
 
@@ -15,19 +16,21 @@ func NewHeartBeatMessage(t time.Time) messages.Message {
 }
 
 type WorkerReadyPayload struct {
-	PublicKey      string         `json:"public_key"`
-	BuildTimestamp *int64         `json:"build_timestamp,omitempty"`
-	Metadata       map[string]any `json:"metadata,omitempty"`
+	PublicKey      string                  `json:"public_key"`
+	BuildTimestamp *int64                  `json:"build_timestamp,omitempty"`
+	Metadata       map[string]any          `json:"metadata,omitempty"`
+	Capabilities   []capability.Capability `json:"capabilities,omitempty"`
 }
 
 // NewWorkerReadyMessage creates a new worker_ready message.
-func NewWorkerReadyMessage(publicKey string, buildTimestamp int64, metadata map[string]any) messages.Message {
+func NewWorkerReadyMessage(publicKey string, buildTimestamp int64, metadata map[string]any, capabilities []capability.Capability) messages.Message {
 	return messages.Message{
 		MessageType: messages.MessageTypeWorkerReady,
 		MessagePayload: WorkerReadyPayload{
 			PublicKey:      publicKey,
 			BuildTimestamp: &buildTimestamp,
 			Metadata:       metadata,
+			Capabilities:   capabilities,
 		},
 	}
 }

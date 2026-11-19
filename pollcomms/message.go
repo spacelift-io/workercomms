@@ -1,6 +1,10 @@
 package pollcomms
 
-import "time"
+import (
+	"time"
+
+	"github.com/spacelift-io/workercomms/capability"
+)
 
 // MaxPollHold stays under the proxy/LB idle timeout (ALB default 60s) so idle
 // polls end in a server 204, not a proxy-induced 504 + client backoff.
@@ -8,10 +12,11 @@ const MaxPollHold = 55 * time.Second
 
 // PollRequest is the body a worker sends with every poll.
 type PollRequest struct {
-	PublicKey      string         `json:"public_key"`
-	BuildTimestamp *int64         `json:"build_timestamp,omitempty"`
-	Metadata       map[string]any `json:"metadata,omitempty"`
-	Available      *bool          `json:"available,omitempty"`
+	PublicKey      string                  `json:"public_key"`
+	BuildTimestamp *int64                  `json:"build_timestamp,omitempty"`
+	Metadata       map[string]any          `json:"metadata,omitempty"`
+	Available      *bool                   `json:"available,omitempty"`
+	Capabilities   []capability.Capability `json:"capabilities,omitempty"`
 }
 
 // IsAvailable reports whether the worker can take work; workers that predate Available always can.
