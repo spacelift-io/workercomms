@@ -13,8 +13,8 @@ type PollRequest struct {
 	Metadata       map[string]any `json:"metadata,omitempty"`
 	Available      *bool          `json:"available,omitempty"`
 	// LauncherGeneration tells Spacelift which hardcoded set of capabilities the
-	// build supports. Absent means 0, the generation of builds that predate
-	// the field, which supports none.
+	// build supports. Absent means 0, the launcher generation of builds that
+	// predate the field, which supports none.
 	LauncherGeneration int `json:"launcher_generation,omitempty"`
 }
 

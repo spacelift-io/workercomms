@@ -15,11 +15,13 @@ func NewHeartBeatMessage(t time.Time) messages.Message {
 }
 
 type WorkerReadyPayload struct {
-	PublicKey          string         `json:"public_key"`
-	BuildTimestamp     *int64         `json:"build_timestamp,omitempty"`
-	Metadata           map[string]any `json:"metadata,omitempty"`
-	// LauncherGeneration tells Spacelift how old is the launcher. 
-	LauncherGeneration int            `json:"launcher_generation,omitempty"`
+	PublicKey      string         `json:"public_key"`
+	BuildTimestamp *int64         `json:"build_timestamp,omitempty"`
+	Metadata       map[string]any `json:"metadata,omitempty"`
+	// LauncherGeneration tells Spacelift which hardcoded set of capabilities the
+	// build supports. Absent means 0, the launcher generation of builds that
+	// predate the field, which supports none.
+	LauncherGeneration int `json:"launcher_generation,omitempty"`
 }
 
 // NewWorkerReadyMessage creates a new worker_ready message.
