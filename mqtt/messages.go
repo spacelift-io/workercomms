@@ -18,16 +18,21 @@ type WorkerReadyPayload struct {
 	PublicKey      string         `json:"public_key"`
 	BuildTimestamp *int64         `json:"build_timestamp,omitempty"`
 	Metadata       map[string]any `json:"metadata,omitempty"`
+	// LauncherGeneration tells Spacelift which hardcoded set of capabilities the
+	// build supports. Absent means 0, the launcher generation of builds that
+	// predate the field, which supports none.
+	LauncherGeneration int `json:"launcher_generation,omitempty"`
 }
 
 // NewWorkerReadyMessage creates a new worker_ready message.
-func NewWorkerReadyMessage(publicKey string, buildTimestamp int64, metadata map[string]any) messages.Message {
+func NewWorkerReadyMessage(publicKey string, buildTimestamp int64, metadata map[string]any, launcherGeneration int) messages.Message {
 	return messages.Message{
 		MessageType: messages.MessageTypeWorkerReady,
 		MessagePayload: WorkerReadyPayload{
-			PublicKey:      publicKey,
-			BuildTimestamp: &buildTimestamp,
-			Metadata:       metadata,
+			PublicKey:          publicKey,
+			BuildTimestamp:     &buildTimestamp,
+			Metadata:           metadata,
+			LauncherGeneration: launcherGeneration,
 		},
 	}
 }

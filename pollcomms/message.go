@@ -12,6 +12,10 @@ type PollRequest struct {
 	BuildTimestamp *int64         `json:"build_timestamp,omitempty"`
 	Metadata       map[string]any `json:"metadata,omitempty"`
 	Available      *bool          `json:"available,omitempty"`
+	// LauncherGeneration tells Spacelift which hardcoded set of capabilities the
+	// build supports. Absent means 0, the launcher generation of builds that
+	// predate the field, which supports none.
+	LauncherGeneration int `json:"launcher_generation,omitempty"`
 }
 
 // IsAvailable reports whether the worker can take work; workers that predate Available always can.
