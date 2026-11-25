@@ -30,6 +30,7 @@ const (
 	ScanFailureCodeInvalidCredentials
 	ScanFailureCodeServiceNotEnabled
 	ScanFailureCodeProviderError
+	ScanFailureCodeWorkersOutdated
 )
 
 //exhaustive:enforce
@@ -59,6 +60,7 @@ var scanFailureCodeNames = map[ScanFailureCode]string{
 	ScanFailureCodeInvalidCredentials:      "INVALID_CREDENTIALS",
 	ScanFailureCodeServiceNotEnabled:       "SERVICE_NOT_ENABLED",
 	ScanFailureCodeProviderError:           "PROVIDER_ERROR",
+	ScanFailureCodeWorkersOutdated:         "WORKERS_OUTDATED",
 }
 
 func (c ScanFailureCode) Known() bool {
