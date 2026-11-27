@@ -3,7 +3,7 @@ module github.com/spacelift-io/workercomms
 go 1.27.3
 
 require (
-	github.com/eclipse/paho.mqtt.golang v1.5.1
+	github.com/eclipse/paho.mqtt.golang v1.5.2
 	github.com/golang-jwt/jwt/v5 v5.3.1
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.12.1
